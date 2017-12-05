@@ -1,0 +1,58 @@
+.myRow,
+.badge badge-success {
+    padding:1px;
+    margin: 1px;
+    border-radius: 5px;
+    border: 1px solid black;
+    min-height: 10px;
+    position: relative;
+}
+
+
+.myRow {
+    display: flex;
+    justify-content: space-between;
+    width: 900px;
+    padding-left: 1%;
+
+}
+.rowF,
+.badge badge-success {
+    padding:1px;
+    margin: 1px;
+    border-radius: 5px;
+    border: 1px solid black;
+    min-height: 10px;
+    position: relative;
+
+}
+
+.rowF {
+    display: flex;
+    justify-content: space-between;
+    width: 900px;
+    padding-left: 1%;
+    background-color: #fff6f9;
+
+}
+
+.badge-success {
+    min-width: 70px;
+}
+
+.badge-default {
+    min-width: 80px;
+
+}
+
+#frozenBlock {
+    display: none;
+}
+
+#formsErrors{
+    display: none;
+}
+
+#watch{
+    display: flex;
+}

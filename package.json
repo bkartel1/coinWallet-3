@@ -1,0 +1,29 @@
+{
+  "name": "criptocalc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "bootstrap": "^3.3.7",
+    "express": "^3.21.2",
+    "jquery": "^3.2.1",
+    "jquery-ui-dist": "^1.12.1",
+    "moment": "^2.19.2",
+    "momentjs": "^2.0.0",
+    "mongodb": "^2.2.33",
+    "popper.js": "^1.12.9",
+    "tempusjs": "^0.2.18",
+    "tether": "^1.4.2",
+    "tooltip.js": "^1.1.7"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
