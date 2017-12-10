@@ -2,12 +2,26 @@
 //import * as $ from "jquery/src/ajax";
 
 // Массив, куда положу запрос из базы
-var bitcoinWallet=[];
+let bitcoinWallet=[];
 
-// Массив временный для ajax запроса
-var ar=[];
+//TODO: Запрос курса монет с CoinMArcetCap
+let ajaxArray=[];
+$.ajax({
+    type: "GET",
+    url: "https://api.coinmarketcap.com/v1/ticker/",
+    dataType : 'json',
 
-//Первым делом запрос в базу
+    success: function(res){
+
+         for (var value in res) {
+             if (res.hasOwnProperty(value)) {
+               ajaxArray.push(res[value]);
+             }
+        }
+
+
+//Запрос в базу
+let ar=[];
 $.ajax({
     type: "get",
     url: "http://localhost:8000/notes/5a259c138b11802bc869922c",
@@ -19,8 +33,7 @@ $.ajax({
                 ar.push(res[value]);
             }
         }
-    }
-});
+
 
 
 
@@ -53,26 +66,39 @@ console.log(time.format('DD MM YYYY'));
 
 
 
-/*var BitCon1 = new coin('BCC', 0.09917856, 278.38, 7349.232, 0.03688883, '2017-11-7', 'BCC site', false, 0, '');
+/*
+
+var BitCoin1 = new coin('BCC', 0.09917856, 278.38, 7349.232, 0.03688883, '2017-11-7', 'BCC site', false, 0, '');
 var BitCoin2 = new coin('BTC', 0.004626, 7330, 193564.8, 0.0, '2017-11-4', 'HBC site', true, 300, "HBC site");
 var ETH1 = new coin('ETH', 0.0462268, 405.1, 10816.23, 0, '2017-11-7', 'iPhone', false, 0, '');
-
-var bitcoinWallet = [new coin('BTC', 0.06263332, 7330, 193564.8, 0.0, '2017-11-4', 'iPhone', false, 0, "")];
-
-bitcoinWallet.push(BitCon1);
-bitcoinWallet.push(ETH1);
-
-bitcoinWallet.push(BitCoin2);*/
-
 var HBC1 = new coin('HBC', 25, 3.0, 80.1, 0.000309, '2017-11-23', 'HBC site', true, 300, 'HBC site');
+var BitCoin3 = new coin('BTC', 0.06263332, 7330, 193564.8, 0.0, '2017-11-4', 'iPhone', false, 0, "");
 
 
-setTimeout(function() {
-    bitcoinWallet=JSON.parse(ar[1]);
-    console.log(bitcoinWallet[1]);
-    console.log("Последний объект перед пушем" + bitcoinWallet[bitcoinWallet.length-1].dateOfpurchase);
-    bitcoinWallet.push(HBC1);
-    console.log("Последний объект после пуша" + bitcoinWallet[bitcoinWallet.length-1].dateOfpurchase);
+var bcw =[];
+
+bcw.push(BitCoin1);
+bcw.push(ETH1);
+bcw.push(BitCoin2);
+bcw.push(BitCoin3);
+bcw.push(HBC1);
+*/
+
+
+for (let i=0; i<ar.length; i++) {
+    console.log(ar[i]);
+}
+
+
+
+
+// Здесь я преобразую заново массив объектов, полученных от GET запроса
+   var t = JSON.parse(ar[1]);
+
+for (var i=0; i<t.length;i++) {
+    bitcoinWallet[i]= new coin(t[i].name,t[i].amount,t[i].bPriceUsd,t[i].bPriceUA,t[i].bPriceBTC,t[i].dateOfpurchase,t[i].location,t[i].isFrozen, t[i].frozenDays, t[i].frozenLocation );
+}
+
 
 $(document).ready(function () {
 
@@ -91,9 +117,9 @@ $(document).ready(function () {
             }
 
         }
-
+//TODO Получаю стиль бэйджа и что показывается при наведении если монета заморожена
         function getBageStyleWhenCoinIsFrozen(isFrozen, i) {
-            var idBage = "";
+            let idBage = "";
             if (isFrozen) {
                 return 'id="Bna' + i + '"';
             }
@@ -105,9 +131,9 @@ $(document).ready(function () {
 
         $(function () {
             $('[data-toggle="tooltip"]').tooltip();
-        })
+        });
 
-
+//TODO Генерация строк с данными монет
         $('#soderjimoe').append('<div class="myRow">' +
             '<span class="badge badge-default">Монета</span>' +
             '<span class="badge badge-default">Кол-во</span>' +
@@ -116,10 +142,17 @@ $(document).ready(function () {
             '<span class="badge badge-default">Цена в BTC</span>' +
             '<span class="badge badge-default">Дата покупки</span>' +
             '<span class="badge badge-default">Где лежит</span>' +
-            '<span class="badge badge-default">Всего в USD</span>');
+            '<span class="badge badge-default">Всего в USD</span>' +
+            '<span class="badge badge-default">Тек. курс</span>'+
+            '<span class="badge badge-default">Доход</span>');
 
 
         for (var i = 0; i < bitcoinWallet.length; i++) {
+
+            if (((bitcoinWallet[i].amount * actualPriceOfcurentCoin(bitcoinWallet[i].name))-(bitcoinWallet[i].amount * bitcoinWallet[i].bPriceUsd)).toFixed(2)<0) {
+                $('#dohod'+i+'').attr('class', 'badge badge-warning');
+console.log(bitcoinWallet[i].name);
+            }
 
 
             $('#soderjimoe').append(getRowStileWhenCoinIsFrozen(bitcoinWallet[i].isFrozen) +
@@ -131,6 +164,8 @@ $(document).ready(function () {
                 '<span class="badge badge-default">' + bitcoinWallet[i].dateOfpurchase.format('DD MM YYYY') + '</span>' +
                 '<span class="badge badge-default">' + bitcoinWallet[i].location + '</span>' +
                 '<span class="badge badge-default">' + (bitcoinWallet[i].amount * bitcoinWallet[i].bPriceUsd).toFixed(2) + '</span>' +
+                '<span class="badge badge-default">' + actualPriceOfcurentCoin(bitcoinWallet[i].name) + '</span>' +
+                '<span class="badge badge-default" id="dohod'+i+'">' + ((bitcoinWallet[i].amount * actualPriceOfcurentCoin(bitcoinWallet[i].name))-(bitcoinWallet[i].amount * bitcoinWallet[i].bPriceUsd)).toFixed(2) + '</span>' +
                 '</div>');
             $('#Bna' + i + '').attr('class', 'badge badge-warning');
             $('#Bna' + i + '').css('width', '70px');
@@ -138,6 +173,12 @@ $(document).ready(function () {
             $('#Bna' + i + '').attr('data-placement', 'bottom');
             $('#Bna' + i + '').attr('title', 'Заморожено до: ' + bitcoinWallet[i].dateOfpurchase.add(bitcoinWallet[i].frozenDays, 'days').format('DD MM YYYY') + ' на ' + bitcoinWallet[i].frozenLocation + '');
 
+            //Делаем отрицательный доход с бэйдж ворнингом
+
+            if (((bitcoinWallet[i].amount * actualPriceOfcurentCoin(bitcoinWallet[i].name))-(bitcoinWallet[i].amount * bitcoinWallet[i].bPriceUsd)).toFixed(2)<=0) {
+                $('#dohod'+i+'').attr('class', 'badge badge-warning');
+                console.log(bitcoinWallet[i].name);
+            }
 
         }
 
@@ -177,6 +218,20 @@ $(document).ready(function () {
         $("#formsErrors").css('display', 'none');
 
     });
+
+ //TODO: Проверка для какой монеты выводить текущий курс в строке
+
+ function actualPriceOfcurentCoin(name) {
+
+     switch (name) {
+         case "BCC" : return 0;
+         case "HBC" : return 3.0;
+         case "BTC" : return ajaxArray[0].price_usd;
+         case "ETH" : return ajaxArray[1].price_usd;;
+     }
+
+
+ }
 
 // Функция валидации формы
 
@@ -382,4 +437,8 @@ $(document).ready(function () {
 
 });
 
-}, 100);
+    }
+});
+
+    }
+});

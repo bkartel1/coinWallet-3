@@ -1,49 +1,18 @@
-var wsUri = "ws://echo.websocket.org/"; // just free WS-server for tests
-var websocket;
+let ar=[];
+$.ajax({
+    type: "GET",
+    url: "https://api.coinmarketcap.com/v1/ticker/",
+    dataType : 'json',
 
-function init() {testWebSocket();}
+    success: function(res){
+        for (var value in res) {
+            if (res.hasOwnProperty(value)) {
+                ar.push(res[value]);
+            }
+        }
 
-function testWebSocket() {
-    websocket = new WebSocket(wsUri);
-    websocket.onopen = function (evt) {
-        onOpen(evt)
-    };
-    websocket.onclose = function (evt) {
-        onClose(evt)
-    };
-    websocket.onmessage = function (evt) {
-        onMessage(evt)
-    };
-    websocket.onerror = function (evt) {
-        onError(evt)
-    };
-}
+        console.log(ar[1].name +" " + ar[1].price_usd);
+    }
+});
 
-function onOpen() {
-    writeToScreen("CONNECTED");
-    doSend("WebSocket rocks");
-}
-function onClose() {
-    writeToScreen("DISCONNECTED");
-}
-
-function onMessage(evt) {
-    writeToScreen('RESPONSE: ' + evt.data);
-    websocket.close();
-}
-
-function onError(evt) {
-    writeToScreen('ERROR: ' + evt.data);
-}
-
-function doSend(message) {
-    writeToScreen("SENT: " + message);
-    websocket.send(message);
-}
-
-function writeToScreen(message) {
-    console.log(message);
-}
-
-window.addEventListener("load", init, false);
 

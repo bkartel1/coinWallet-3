@@ -37,13 +37,19 @@
 }
 
 .badge-success {
-    min-width: 70px;
+    min-width: 80px;
 }
 
 .badge-default {
     min-width: 80px;
 
 }
+
+.badge-warning {
+    min-width: 80px;
+
+}
+
 
 #frozenBlock {
     display: none;
