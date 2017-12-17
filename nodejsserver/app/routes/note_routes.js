@@ -1,4 +1,4 @@
-var ObjectID = require('mongodb').ObjectID;
+let ObjectID = require('mongodb').ObjectID;
 
 module.exports = function (app, db) {
 
@@ -18,7 +18,7 @@ module.exports = function (app, db) {
     });
 
     app.put('/', function(req, res, next) {
-        // Handle the post for this route
+        // Handle the put for this route
     });
 
 

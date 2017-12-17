@@ -4,6 +4,35 @@ $('.collapse').collapse();
 // Массив, куда положу запрос из базы
 let bitcoinWallet = [];
 
+// Массив для графика суммарного дохода
+let graf = [];
+
+
+
+$.ajax({
+    type: "get",
+    url: "http://localhost:8000/notes/5a364057f36d2869668baca0",
+    dataType: 'json',
+
+    success: function (res) {
+        for (let value in res) {
+            if (res.hasOwnProperty(value)) {
+                graf.push(res[value]);
+            }
+        }
+        let tempstring = graf[1];
+        graf=[];
+        graf=JSON.parse(tempstring);
+        }
+});
+
+
+
+
+
+
+
+
 //TODO: Запрос курса монет с CoinMArcetCap
 let ajaxArray = [];
 $.ajax({
@@ -38,11 +67,8 @@ $.ajax({
                 let now = moment();
                 moment.locale('ru');
 
-                let m = moment(new Date(2011, 2, 12));
-                m.locale('ru');
 
-
-                var coin = function (name, amount, bPriceUsd, bPriceUa, bPriceBTC, dateOfpurchase, location, isFrozen, frozenDays, frozenLocation) {
+                let coin = function (name, amount, bPriceUsd, bPriceUa, bPriceBTC, dateOfpurchase, location, isFrozen, frozenDays, frozenLocation) {
                     this.name = name;
                     this.amount = amount;
                     this.bPriceUsd = parseFloat(bPriceUsd); // Сколько стоила монета в USD
@@ -56,63 +82,9 @@ $.ajax({
 
                 };
 
-                let string = '2017-11-1';
-                let time = moment(new Date(string));
 
-                console.log("Время дата -" + time.format('D.M'));
+                console.log("Время дата -" + now.format('D.M'));
 
-                //TODO График гугла
-                google.charts.load('current', {'packages': ['corechart']});
-                google.charts.setOnLoadCallback(drawChart);
-
-                // Забиваю 1 месяц данных чтобы посмотреть ка будет
-                let tarray = [['Data', 'Summ'],
-                    ['4.11', -610],
-                    ['5.11', -611],
-                    ['6.11', -614.85],
-                    ['7.11', -624.12],
-                    ['8.11', -607.86],
-                    ['9.11', -613.92],
-                    ['10.11', -642.6],
-                    ['11.11', -665.82],
-                    ['12.11', -677.98],
-                    ['13.11', -644.12],
-                    ['14.11', -619.52],
-                    ['15.11', -559.51],
-                    ['16.11', -521.00],
-                    ['17.11', -514.15],
-                    ['18.11', -495.32],
-                    ['19.11', -470.77],
-                    ['20.11', -457.38],
-                    ['21.11', -450.00],
-                    ['22.11', -558.37],
-                    ['23.11', -554.77],
-                    ['24.11', -546.32],
-                    ['25.11', -517.35],
-                    ['26.11', -478.32],
-                    ['27.11', -446.58],
-                    ['28.11', -430.22],
-                    ['29.11', -431.52],
-                    ['30.11', -427.32], ['01.12', -343.78],['02.12', -318.12],['03.12', -289.88],
-                    ['04.12', -292.42], ['05.12', -266.00],['06.12', -167.55],['07.12', -52.55],
-                    ['08.12', -17.58],['09.12', -14.52],['10.12', -16.71],['11.12', 202.34],
-                    ['12.12', 194.15]
-
-                ];
-
-                function drawChart() {
-                    let data = google.visualization.arrayToDataTable(tarray);
-
-                    let options = {
-                        title: 'Суммарный доход/потери',
-                        curveType: 'function',
-                        legend: {position: 'bottom'}
-                    };
-
-                    let chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-
-                    chart.draw(data, options);
-                }
 
 
 // Здесь я преобразую заново массив объектов, полученных от GET запроса
@@ -127,6 +99,7 @@ $.ajax({
 
                     showAllCoin();
 
+//TODO Показать все монеты
                     function showAllCoin() {
                         $("#soderjimoe").empty();
 
@@ -214,9 +187,51 @@ $.ajax({
                             }
 
                         }
+                        //TODO Вывод Summary
+                        let tempArrayForSummary = [];
                         summary = summary.toFixed(2);
                         $('#summary').attr('class', 'badge badge-success');
                         $('#summary').text("Итог: " + summary);
+                        tempArrayForSummary[0] = now.format('D.M');
+                        tempArrayForSummary[1] = summary;
+
+                        //если есть текущая дата в массиве для графиков, то я ее перезаписываю, если нету - пушу
+                        console.log("Содержимое массива graf " + graf );
+                        if (tempArrayForSummary[0] === graf[graf.length - 1][0]) {
+                            graf[graf.length - 1][0] = tempArrayForSummary[0];
+                            graf[graf.length - 1][1] = tempArrayForSummary[1];
+                            console.log("Уже есть такая дата в массиве");
+                            console.log("Содерж 2-х последних ячеек в массиве graf " + graf[graf.length - 1] + " , " + graf[graf.length - 2]);
+                            $.ajax({
+                                type: "PUT",
+                                url: "http://localhost:8000/notes/5a364057f36d2869668baca0",
+
+                                data: {
+                                    title: JSON.stringify(graf)
+                                },
+
+                                success: function (msg) {
+                                    console.log("Ушли данные: graf" + msg);
+                                }
+                            });
+                        } else {
+                            console.log("Нет такой даты в массиве")
+                            graf.push(tempArrayForSummary);
+                            console.log("Содерж 2-х последних ячеек в массиве graf " + graf[graf.length - 1] + " , " + graf[graf.length - 2]);
+                            $.ajax({
+                                type: "PUT",
+                                url: "http://localhost:8000/notes/5a364057f36d2869668baca0",
+
+                                data: {
+                                    title: JSON.stringify(graf)
+                                },
+
+                                success: function (msg) {
+                                   console.log("Ушли данные: graf" + msg);
+                                }
+                            });
+                        }
+
                     }
 
 
@@ -266,19 +281,23 @@ $.ajax({
                                 return ajaxArray[0].price_usd;
                             case "ETH" :
                                 return ajaxArray[1].price_usd;
-                                ;
+
                         }
 
 
                     }
 
+
+
+
+
 // Функция валидации формы
 
                     function addCoin() {
-                        var errorcheck = false;
-                        var f = document.forms.addCoin.elements;
-                        var errString = "";
-                        var formCheckCount = 0;
+                        let errorcheck = false;
+                        let f = document.forms.addCoin.elements;
+                        let errString = "";
+                        let formCheckCount = 0;
 
                         function errcheck(errCode) {
                             switch (errCode) {
@@ -375,8 +394,6 @@ $.ajax({
                         if (f.wallet.value.length < 1) {
                             f.wallet.value = "";
                             f.wallet.placeholder = "Повторите ввод";
-                            //   $("#formsErrors").css('display', 'block');
-                            //     $("#formsErrors").text(errcheck("Не указано кол-во"));
                             errorcheck = false;
                             console.log("Проверка на стадии Wallet :" + errorcheck);
                         } else {
@@ -462,7 +479,7 @@ $.ajax({
                                 },
 
                                 success: function (msg) {
-                                    alert("Ушли данные: " + msg);
+                                    console.log("Ушли данные: " + msg);
                                 }
                             });
 
@@ -479,3 +496,80 @@ $.ajax({
 
     }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Создаётся объект promise
+let promise = new Promise((resolve, reject) => {
+    let array=[];
+    setTimeout(() => {
+        // переведёт промис в состояние fulfilled с результатом "result"
+        resolve(
+            //TODO График гугла
+
+        $.ajax({
+            type: "get",
+            url: "http://localhost:8000/notes/5a364057f36d2869668baca0",
+            dataType: 'json',
+
+
+            success: function (res) {
+                for (let value in res) {
+                    if (res.hasOwnProperty(value)) {
+                        array.push(res[value]);
+                    }
+                }
+
+                let tarray=JSON.parse(array[1]);
+
+
+                google.charts.load('current', {'packages': ['corechart']});
+                google.charts.setOnLoadCallback(drawChart);
+
+                function drawChart() {
+                    let data = google.visualization.arrayToDataTable(tarray);
+
+                    let options = {
+                        title: 'Суммарный доход/потери',
+                        curveType: 'function',
+                        legend: {position: 'bottom'}
+                    };
+
+                    let chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+                    chart.draw(data, options);
+                }
+            }
+        }))
+    }, 1000);
+
+});
+
+// promise.then навешивает обработчики на успешный результат или ошибку
+promise
+    .then(
+        result => {
+            // первая функция-обработчик - запустится при вызове resolve
+            console.log("Промиc говорит все хорошо и строит график с последней датой: " + graf[graf.length-1][0]); // result - аргумент resolve
+        },
+        error => {
+            // вторая функция - запустится при вызове reject
+            alert("Rejected: " + error); // error - аргумент reject
+        }
+    );
+
+
+
+
+
+
