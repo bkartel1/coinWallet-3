@@ -1,0 +1,17 @@
+#Игнор node_modules
+node_modules/
+
+#Игнор nodejsserver
+nodejsserver/
+!nodejsserver/app.js
+!nodejsserver/app/*
+
+#Игнор старых html и js
+test.html
+watch.html
+gulpfile.js
+js/
+!app.js
+
+
+
