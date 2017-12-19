@@ -1,6 +1,21 @@
 'use strict';
 $('.collapse').collapse();
 
+
+
+let dropdownMenu =
+    '<div class="btn-group">' +
+    '  <button id="drop" type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
+    '    ' +
+    '  </button>' +
+    '  <div class="dropdown-menu">' +
+    '    <a class="dropdown-item" href="#">Удалить</a>' +
+    '    <a class="dropdown-item" href="#">Редактировать</a>' +
+    '    <a class="dropdown-item" href="#">Обмен</a>' +
+    '  </div>' +
+    '</div>';
+
+
 // Массив, куда положу запрос из базы
 let bitcoinWallet = [];
 
@@ -42,7 +57,7 @@ $.ajax({
 
     success: function (res) {
 
-        for (var value in res) {
+        for (let value in res) {
             if (res.hasOwnProperty(value)) {
                 ajaxArray.push(res[value]);
             }
@@ -104,7 +119,7 @@ $.ajax({
                         $("#soderjimoe").empty();
 
                         function getRowStileWhenCoinIsFrozen(isFrozen) {
-                            var rowClass = "<div class='myRow'>";
+                            let rowClass = "<div class='myRow'>";
                             if (isFrozen) {
                                 return "<div class='rowF'>"
                             }
@@ -142,7 +157,8 @@ $.ajax({
                             '<span class="badge badge-default">Всего в USD</span>' +
                             '<span class="badge badge-default">Тек. курс</span>' +
                             '<span class="badge badge-default">Тек. стоим</span>' +
-                            '<span class="badge badge-default">Доход</span>');
+                            '<span class="badge badge-default">Доход</span>'+
+                            '<span>Меню</span>');
 
                         let summary = 0.0;
                         for (let i = 0; i < bitcoinWallet.length; i++) {
@@ -171,7 +187,7 @@ $.ajax({
                                 '<span class="badge badge-default">' + (bitcoinWallet[i].amount * bitcoinWallet[i].bPriceUsd).toFixed(2) + '</span>' +
                                 '<span class="badge badge-default">' + actualPriceOfcurentCoin(bitcoinWallet[i].name) + '</span>' +
                                 '<span class="badge badge-default">' + (actualPriceOfcurentCoin(bitcoinWallet[i].name) * bitcoinWallet[i].amount).toFixed(2) + '</span>' +
-                                '<span class="badge badge-default" id="dohod' + i + '">' + ((bitcoinWallet[i].amount * actualPriceOfcurentCoin(bitcoinWallet[i].name)) - (bitcoinWallet[i].amount * bitcoinWallet[i].bPriceUsd)).toFixed(2) + '</span>' +
+                                '<span class="badge badge-default" id="dohod' + i + '">' + ((bitcoinWallet[i].amount * actualPriceOfcurentCoin(bitcoinWallet[i].name)) - (bitcoinWallet[i].amount * bitcoinWallet[i].bPriceUsd)).toFixed(2) + '</span>' + dropdownMenu +
                                 '</div>');
                             $('#Bna' + i + '').attr('class', 'badge badge-warning');
                             $('#Bna' + i + '').css('width', '70px');
@@ -183,7 +199,6 @@ $.ajax({
 
                             if (((bitcoinWallet[i].amount * actualPriceOfcurentCoin(bitcoinWallet[i].name)) - (bitcoinWallet[i].amount * bitcoinWallet[i].bPriceUsd)).toFixed(2) <= 0) {
                                 $('#dohod' + i + '').attr('class', 'badge badge-warning');
-
                             }
 
                         }
@@ -215,7 +230,7 @@ $.ajax({
                                 }
                             });
                         } else {
-                            console.log("Нет такой даты в массиве")
+                            console.log("Нет такой даты в массиве");
                             graf.push(tempArrayForSummary);
                             console.log("Содерж 2-х последних ячеек в массиве graf " + graf[graf.length - 1] + " , " + graf[graf.length - 2]);
                             $.ajax({
@@ -239,9 +254,9 @@ $.ajax({
 
                     $('input.ShowOrHide').click(function () {
 
-                        var checked = $("input.ShowOrHide:checked");
+                        let checked = $("input.ShowOrHide:checked");
 
-                        if (checked.length == 0) {
+                        if (checked.length === 0) {
                             $("#frozenBlock").hide();
                         } else {
                             $("#frozenBlock").show();
@@ -319,7 +334,7 @@ $.ajax({
                             console.log("Проверка на стадии Calendar :" + errorcheck);
                         } else {
 
-                            var tempCalendarString = f.calend.value;                        //Преобразование формата даты для объекта
+                            let tempCalendarString = f.calend.value;                        //Преобразование формата даты для объекта
                             tempCalendarString = tempCalendarString.replace('/', '-');      //Доработать чтобы замена былав в одной строчке
                             tempCalendarString = tempCalendarString.replace('/', '-');
 
@@ -345,7 +360,7 @@ $.ajax({
 
                         //Проверка формы выбора монеты
 
-                        if (f.coin.value == 0) {
+                        if (f.coin.value === 0) {
                             $("#formsErrors").css('display', 'block');
                             $("#formsErrors").text(errcheck("Не выбрана монета"));
                             errorcheck = false;
@@ -410,7 +425,7 @@ $.ajax({
                             tempCoin.isFrozen = true;
                             console.log("tempCpoin.isFrozen: " + tempCoin.isFrozen);
 
-                            var form = document.forms.addCoinFrozen.elements;
+                            let form = document.forms.addCoinFrozen.elements;
 
 
                             if (form.frozenDays.value.length < 1) {
@@ -453,7 +468,7 @@ $.ajax({
                             $("#formsErrors").text("Ваша монета добавлена");
                             tempCoin.bPriceUA = (tempCoin.bPriceUsd * 26.7).toFixed(2);
 
-                            var Coin1 = new coin(
+                            let Coin1 = new coin(
                                 tempCoin.name,
                                 tempCoin.amount,
                                 tempCoin.bPriceUsd,
