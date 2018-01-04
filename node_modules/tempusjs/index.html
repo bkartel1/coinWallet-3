@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="TempusJS">
+    <meta name="author" content="Kuznetsov Aleksey aka crusat">
+    <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+    <title>TempusJS</title>
+    <link href="css/main.css" rel="stylesheet">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="logo-shadow">TempusJS</div>
+        <h1 class="logo">TempusJS</h1>
+        <ul class="menu">
+            <li><a href="tests/index.html">Tests</a></li>
+            <li><a href="http://docs.tempusjs.org/documentation/docs/tempus/index">Docs</a></li>
+            <li><a href="https://github.com/crusat/tempus-js">View at Github</a></li>
+            <li><a href="https://github.com/crusat/tempus-js/releases">Download</a></li>
+        </ul>
+        <div class="clock" id="tempus-clock-example"></div>
+        <div class="clear"></div>
+        <div class="subtext">This is a JavaScript library for more comfortable use date and time functions.</div>
+    </div>
+    <script type="text/javascript" src="src/tempusjs.js"></script>
+    <script type="text/javascript" src="src/plugins/tempus.random.js"></script>
+    <script type="text/javascript">
+        window.onload = function() {
+            var elClock = document.getElementById('tempus-clock-example'),
+                clock = setInterval(function() {
+                    elClock.innerHTML = tempus().format('%H:%M:%S');
+            }, 1000);
+            elClock.innerHTML = tempus().format('%H:%M:%S');
+        }
+    </script>
+
+</body>
+</html>

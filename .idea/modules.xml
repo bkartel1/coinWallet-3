@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/criptocalc.iml" filepath="$PROJECT_DIR$/criptocalc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/nodejsserver/nodejsserver.iml" filepath="$PROJECT_DIR$/nodejsserver/nodejsserver.iml" />
+    </modules>
+  </component>
+</project>

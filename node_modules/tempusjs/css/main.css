@@ -1,0 +1,47 @@
+html {
+    background: black url(../images/bg.jpg) 50% 0 no-repeat;
+}
+.wrapper {
+    width: 800px;
+    margin: 0 auto;
+    position: relative;
+}
+.menu {
+    float: left;
+}
+.menu li {
+    display: block;
+    float: left;
+}
+.menu li a {
+    padding: 4px 5px;
+    display: block;
+    background: #b31e03;
+    color: white;
+}
+.menu li a:hover {
+    background: yellow;
+    color: black;
+}
+.logo {
+    color: #b31e03;
+    font-size: 32px;
+    position: relative;
+    float: left;
+    margin: 10px 10px 0 10px;
+    text-shadow: 1px 1px 1px yellow;
+}
+.clock {
+    color: white;
+    display: block;
+    position: relative;
+    float: right;
+    font-size: 18px;
+}
+.subtext {
+    color: #dadada;
+    position: relative;
+}
+.clear {
+    clear:both;
+}

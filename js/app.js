@@ -45,14 +45,14 @@ $.ajax({
 
 
 
-
+let hbcPrice=0.0
 
 
 //TODO: Запрос курса монет с CoinMArcetCap
 let ajaxArray = [];
 $.ajax({
     type: "GET",
-    url: "https://api.coinmarketcap.com/v1/ticker/",
+    url: "https://api.coinmarketcap.com/v1/ticker/?limit=1200",
     dataType: 'json',
 
     success: function (res) {
@@ -60,8 +60,14 @@ $.ajax({
         for (let value in res) {
             if (res.hasOwnProperty(value)) {
                 ajaxArray.push(res[value]);
+
+            }
+            if (ajaxArray[ajaxArray.length-1].symbol==='HBC') {
+                hbcPrice=ajaxArray[ajaxArray.length-1].price_usd;
             }
         }
+        console.log(ajaxArray);
+        console.log(hbcPrice);
 
 
 //Запрос в базу
@@ -182,7 +188,7 @@ $.ajax({
                                 '<span class="badge badge-default">' + bitcoinWallet[i].bPriceUsd + '</span>' +
                                 '<span class="badge badge-default">' + bitcoinWallet[i].bPriceUA + '</span>' +
                                 '<span class="badge badge-default">' + bitcoinWallet[i].bPriceBTC + '</span>' +
-                                '<span class="badge badge-default">' + bitcoinWallet[i].dateOfpurchase.format('DD MM YYYY') + '</span>' +
+                                `<span class="badge badge-default"> ${bitcoinWallet[i].dateOfpurchase.format('DD MM YYYY')}</span>` +
                                 '<span class="badge badge-default">' + bitcoinWallet[i].location + '</span>' +
                                 '<span class="badge badge-default">' + (bitcoinWallet[i].amount * bitcoinWallet[i].bPriceUsd).toFixed(2) + '</span>' +
                                 '<span class="badge badge-default">' + actualPriceOfcurentCoin(bitcoinWallet[i].name) + '</span>' +
@@ -291,12 +297,15 @@ $.ajax({
                             case "BCC" :
                                 return 0;
                             case "HBC" :
-                                return 3.0;
+                                return hbcPrice;
                             case "BTC" :
                                 return ajaxArray[0].price_usd;
                             case "ETH" :
+                                return ajaxArray[2].price_usd;
+                            case "IOTA" :
+                                return ajaxArray[8].price_usd;
+                            case "XRP" :
                                 return ajaxArray[1].price_usd;
-
                         }
 
 
@@ -566,7 +575,7 @@ let promise = new Promise((resolve, reject) => {
                 }
             }
         }))
-    }, 1000);
+    }, 1500);
 
 });
 

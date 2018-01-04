@@ -1,0 +1,177 @@
+0.2.18
+- get() can returns date as Array. Use get('Array').
+
+0.2.17
+- Bug fixes.
+
+0.2.16 (Bad version)
+- Exports bug fix.
+- Changed file names to tempusjs.
+
+0.2.15 (Bad version)
+- Translation are included in the main file. JSON file is removed.
+- Added to npm.
+
+0.2.14
+- Added UA and DE translation (Thanks to Valentin Kovshik).
+
+0.2.13
+- Fixed bug https://github.com/crusat/tempus-js/issues/5
+- Finished https://github.com/crusat/tempus-js/issues/6
+- Added json2.js to tests directory.
+
+0.2.12
+- Fixed tests.
+- Fixed docs.
+- Fixed bug with setting february from current date 29+ day of month.
+
+0.2.11
+- Validate() changes to valid().
+- Bug fix with UTC/GMT Date on MS Windows and GNU/Linux.
+- Fixed bug in tests.
+
+0.2.10
+- Fixed bug with get('DateUTC') and get('Date').
+
+0.2.9
+- Fixed bug with generate().
+
+0.2.8
+- Fixed bug with 1 week january with generate().
+
+0.2.7
+- Fixed some small bugs.
+
+0.2.6
+- classes() now setter too.
+- Fixed week() bug.
+- Changed vars "date" and "incorrent" to "_d" and "_i" for economy space.
+
+0.2.5
+- Fixed bug with format and parse %b, %B directives.
+
+0.2.4
+- dayOfWeek() now setter too.
+- Fixed bug with week().
+- Added fillNulls for generate().
+
+0.2.3
+- Constants format changed.
+- Added function classes() for returns some class.
+- Now only "tempus" exports to global scope.
+
+0.2.2
+- Documentation.
+
+0.2.1
+- Fixed error with %a, %A directives.
+
+0.2.0
+- Supports chains.
+- Supports modular structure.
+- Changed tempus to Tempus and TP, added method noConflict().
+- Autodetect user language.
+- parse(), now() and set() methods merget to set().
+- Can be set date as Array.
+- Some functions built as static.
+
+0.1.31
+- Added TempusDate constructor.
+- Added time zones support.
+- Fixed bug with Russia's MSK time zone (No time conversion).
+
+0.1.30
+- Format can be undefined for autodetect.
+- Little bug fixed with getDaysCountInMonth from string.
+- Fixed error with tempus.between(). Now all ok.
+- Fixed bug at getWeekNumber().
+
+0.1.29
+- Supports IE6+, Firefox, Chrome, Opera.
+
+0.1.28
+- Added methods registerFormat(), unregisterFormat();
+- Added options "asObject" and "groupBy" to generateDates.
+- Rewritten methods format() and parse().
+
+0.1.27
+Added method generateDates(), updated incDate() and decDate().
+
+0.1.26
+Fixed bug with time zones.
+
+0.1.25
+parseInt() changed to Number().
+
+0.1.24
+First public version &&  added method getVersion().
+
+0.0.23
+method getAvailableLocales(), locales fixed.
+
+0.0.22
+localization with setLocale() and getLocale().
+
+0.0.21
+method alarm().
+
+0.0.20
+method clock().
+
+0.0.19
+fixed date() and format().
+
+0.0.18
+back to percent formatting.
+
+0.0.17
+method reformat() and fixed format().
+
+0.0.16
+method time() now accepts strings date and date-format.
+
+0.0.15
+method validate().
+
+0.0.14
+optimized normalizeDate(), added date(), fixed parse().
+
+0.0.13
+added normalizeDate(). Fixed incDate(), decDate(), parse().
+
+0.0.12
+optimized between().
+
+0.0.11
+fixed time() - now returning in UTC.
+time(date) = get timestamp from date.
+
+0.0.10
+fixed getDayOfWeek().
+
+0.0.9
+getDaysNames() renamed to getDayNames().
+
+0.0.8
+fixed format(), now().
+
+0.0.7
+bugfix format().
+
+0.0.6
+method parse().
+
+0.0.5
+method decDate().
+
+0.0.4
+method format().
+
+0.0.3
+methods getDayOfWeek(), incDate(), between(), getDaysArrayByWeek() and some other.
+
+0.0.2
+leap years
+
+0.0.1
+first version

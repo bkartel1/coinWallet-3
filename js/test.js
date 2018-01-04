@@ -1,18 +1,35 @@
-let ar=[];
-$.ajax({
-    type: "GET",
-    url: "https://api.coinmarketcap.com/v1/ticker/",
-    dataType : 'json',
+'use strict';
 
-    success: function(res){
-        for (var value in res) {
-            if (res.hasOwnProperty(value)) {
-                ar.push(res[value]);
+async function getAjax(api, time = 0) {
+    let ajAr = [];
+    $.ajax({
+        type: "GET",
+        url: api,
+        dataType: 'json',
+
+        success: function (res) {
+
+            for (let value in res) {
+                if (res.hasOwnProperty(value)) {
+                    ajAr.push(res[value]);
+
+                }
             }
-        }
+          }
+    });
 
-        console.log(ar[1].name +" " + ar[1].price_usd);
-    }
-});
+}
 
 
+async function getPrice() {
+    const api = 'https://api.coinmarketcap.com/v1/ticker/homeblockcoin/';
+    return getAjax(api, 0);
+}
+
+async function getMessage() {
+    let mes = getPrice();
+    return mes.then(function(){ return ajAr});
+}
+
+
+console.log("Вызов  " + getMessage());
