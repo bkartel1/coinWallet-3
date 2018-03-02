@@ -97,7 +97,10 @@
                                     <option value="BNT">BNT</option>
                                     <option value="SNM">SNM</option>
                                     <option value="MTH">MTH</option>
-
+                                    <option value="LTC">LTC</option>
+                                    <option value="FAN">FUN</option>
+                                    <option value="TRX">TRX</option>
+                                    <option value="UCASH">UCASH</option>
 
 
 
@@ -148,8 +151,9 @@
             <div class="container" style="padding-top: 15px"><!-- Button trigger modal -->
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
                     Добавить монету
-                </button>
+                </button><button type="button" class="btn btn-primary" id ="sincBut">Синхронизировать БД</button>
             </div>
+
         </div>
 
         <div class="col col-lg-2">
@@ -217,6 +221,54 @@
 <div id="ftt">
     <p align="center">Copyright © 2017. All right reserved.</p>
     <!--/.footer-bottom--></div>
+
+<!-- Modal Удаление элемента-->
+<div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Удаление</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Вы подтверждаете удаление монеты?</p>
+                <div id="delCoinConfirmation"> </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="delConfirm">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Удаление элемента-->
+<div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="alertModalh5">Монета требует внимания</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p></p>
+                <div id="alertCoinInfo"> </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="alertConfirm">Принято</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

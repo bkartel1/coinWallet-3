@@ -47,12 +47,14 @@ let ajaxArray = [];
 let modifAjaxArray = [];
 $.ajax({
     type: "GET",
-    url: "https://api.coinmarketcap.com/v1/ticker/?limit=0",
+    url: "https://api.coinmarketcap.com/v1/ticker/?limit=1300",
+    //GET /api/v1/ticker/allBookTickers
     dataType: 'json',
 
     success: function (res) {
-
+console.log("Зашли в ветку получения курсов");
         for (let value in res) {
+            console.log(ajaxArray.length);
             if (res.hasOwnProperty(value)) {
                 ajaxArray.push(res[value]);
 
@@ -60,74 +62,210 @@ $.ajax({
         }
         console.log(ajaxArray);
 
+        let coinParaFromCoinMarketCap=function(name,usd,change24h){
+            this.name=name;
+            this.usd=usd;
+            this.change24h=change24h
+        };
+        let coinParamArr =[];
+
         for (let i = 0; i < ajaxArray.length; i++) {
 
             switch (ajaxArray[i].symbol) {
                 case 'BTC':
+
                     modifAjaxArray[0] = ajaxArray[i].price_usd;
+                    coinParamArr.push(new coinParaFromCoinMarketCap(ajaxArray[i].symbol,ajaxArray[i].price_usd,ajaxArray[i].percent_change_24h));
                     break;
 
                 case 'XRP':
+
                     modifAjaxArray[1] = ajaxArray[i].price_usd;
+                    coinParamArr.push(new coinParaFromCoinMarketCap(ajaxArray[i].symbol,ajaxArray[i].price_usd,ajaxArray[i].percent_change_24h));
                     break;
 
                 case 'ETH':
+                    coinParamArr.push(new coinParaFromCoinMarketCap(ajaxArray[i].symbol,ajaxArray[i].price_usd,ajaxArray[i].percent_change_24h));
                     modifAjaxArray[2] = ajaxArray[i].price_usd;
                     break;
                 case 'ADA':
+                    coinParamArr.push(new coinParaFromCoinMarketCap(ajaxArray[i].symbol,ajaxArray[i].price_usd,ajaxArray[i].percent_change_24h));
                     modifAjaxArray[3] = ajaxArray[i].price_usd;
                     break;
                 case 'MIOTA':
+                    coinParamArr.push(new coinParaFromCoinMarketCap(ajaxArray[i].symbol,ajaxArray[i].price_usd,ajaxArray[i].percent_change_24h));
                     modifAjaxArray[4] = ajaxArray[i].price_usd;
                     break;
                 case 'XEM':
+                    coinParamArr.push(new coinParaFromCoinMarketCap(ajaxArray[i].symbol,ajaxArray[i].price_usd,ajaxArray[i].percent_change_24h));
                     modifAjaxArray[5] = ajaxArray[i].price_usd;
                     break;
                 case 'XVG':
+                    coinParamArr.push(new coinParaFromCoinMarketCap(ajaxArray[i].symbol,ajaxArray[i].price_usd,ajaxArray[i].percent_change_24h));
                     modifAjaxArray[6] = ajaxArray[i].price_usd;
                     break;
                 case 'BTS':
+                    coinParamArr.push(new coinParaFromCoinMarketCap(ajaxArray[i].symbol,ajaxArray[i].price_usd,ajaxArray[i].percent_change_24h));
                     modifAjaxArray[7] = ajaxArray[i].price_usd;
                     break;
                 case 'GNT':
+                    coinParamArr.push(new coinParaFromCoinMarketCap(ajaxArray[i].symbol,ajaxArray[i].price_usd,ajaxArray[i].percent_change_24h));
                     modifAjaxArray[8] = ajaxArray[i].price_usd;
                     break;
                 case 'DGB':
+                    coinParamArr.push(new coinParaFromCoinMarketCap(ajaxArray[i].symbol,ajaxArray[i].price_usd,ajaxArray[i].percent_change_24h));
                     modifAjaxArray[9] = ajaxArray[i].price_usd;
                     break;
                 case 'RDD':
+                    coinParamArr.push(new coinParaFromCoinMarketCap(ajaxArray[i].symbol,ajaxArray[i].price_usd,ajaxArray[i].percent_change_24h));
                     modifAjaxArray[10] = ajaxArray[i].price_usd;
                     break;
                 case 'BTM':
-                    if (ajaxArray[i].name==='Bytom') {
+
+                    if (ajaxArray[i].name === 'Bytom') {
+                        coinParamArr.push(new coinParaFromCoinMarketCap(ajaxArray[i].symbol,ajaxArray[i].price_usd,ajaxArray[i].percent_change_24h));
                         modifAjaxArray[11] = ajaxArray[i].price_usd;
                     }
                     break;
                 case 'CVC':
+                    coinParamArr.push(new coinParaFromCoinMarketCap(ajaxArray[i].symbol,ajaxArray[i].price_usd,ajaxArray[i].percent_change_24h));
                     modifAjaxArray[12] = ajaxArray[i].price_usd;
                     break;
                 case 'POWR':
+                    coinParamArr.push(new coinParaFromCoinMarketCap(ajaxArray[i].symbol,ajaxArray[i].price_usd,ajaxArray[i].percent_change_24h));
                     modifAjaxArray[13] = ajaxArray[i].price_usd;
                     break;
                 case 'SUB':
+                    coinParamArr.push(new coinParaFromCoinMarketCap(ajaxArray[i].symbol,ajaxArray[i].price_usd,ajaxArray[i].percent_change_24h));
                     modifAjaxArray[14] = ajaxArray[i].price_usd;
                     break;
                 case 'BNT':
+                    coinParamArr.push(new coinParaFromCoinMarketCap(ajaxArray[i].symbol,ajaxArray[i].price_usd,ajaxArray[i].percent_change_24h));
                     modifAjaxArray[15] = ajaxArray[i].price_usd;
                     break;
                 case 'SNM':
+                    coinParamArr.push(new coinParaFromCoinMarketCap(ajaxArray[i].symbol,ajaxArray[i].price_usd,ajaxArray[i].percent_change_24h));
                     modifAjaxArray[16] = ajaxArray[i].price_usd;
                     break;
 
                 case 'MTH':
+                    coinParamArr.push(new coinParaFromCoinMarketCap(ajaxArray[i].symbol,ajaxArray[i].price_usd,ajaxArray[i].percent_change_24h));
                     modifAjaxArray[17] = ajaxArray[i].price_usd;
                     break;
                 case 'HBC':
+                    coinParamArr.push(new coinParaFromCoinMarketCap(ajaxArray[i].symbol,ajaxArray[i].price_usd,ajaxArray[i].percent_change_24h));
                     modifAjaxArray[18] = ajaxArray[i].price_usd;
+                    break;
+                case 'LTC':
+                    coinParamArr.push(new coinParaFromCoinMarketCap(ajaxArray[i].symbol,ajaxArray[i].price_usd,ajaxArray[i].percent_change_24h));
+                    modifAjaxArray[19] = ajaxArray[i].price_usd;
+                    break;
+                case 'VIBE':
+                    coinParamArr.push(new coinParaFromCoinMarketCap(ajaxArray[i].symbol,ajaxArray[i].price_usd,ajaxArray[i].percent_change_24h));
+                    modifAjaxArray[20] = ajaxArray[i].price_usd;
+                    break;
+                case 'STX':
+                    coinParamArr.push(new coinParaFromCoinMarketCap(ajaxArray[i].symbol,ajaxArray[i].price_usd,ajaxArray[i].percent_change_24h));
+                    modifAjaxArray[21] = ajaxArray[i].price_usd;
+                    break;
+                case 'DATA':
+                    coinParamArr.push(new coinParaFromCoinMarketCap(ajaxArray[i].symbol,ajaxArray[i].price_usd,ajaxArray[i].percent_change_24h));
+                    modifAjaxArray[22] = ajaxArray[i].price_usd;
+                    break;
+                case 'LINK':
+                    coinParamArr.push(new coinParaFromCoinMarketCap(ajaxArray[i].symbol,ajaxArray[i].price_usd,ajaxArray[i].percent_change_24h));
+                    modifAjaxArray[23] = ajaxArray[i].price_usd;
+                    break;
+                case 'DCN':
+                    coinParamArr.push(new coinParaFromCoinMarketCap(ajaxArray[i].symbol,ajaxArray[i].price_usd,ajaxArray[i].percent_change_24h));
+                    modifAjaxArray[24] = ajaxArray[i].price_usd;
+                    break;
+                case 'DIME':
+                    coinParamArr.push(new coinParaFromCoinMarketCap(ajaxArray[i].symbol,ajaxArray[i].price_usd,ajaxArray[i].percent_change_24h));
+                    modifAjaxArray[25] = ajaxArray[i].price_usd;
+                    break;
+                case 'PAC':
+                    coinParamArr.push(new coinParaFromCoinMarketCap(ajaxArray[i].symbol,ajaxArray[i].price_usd,ajaxArray[i].percent_change_24h));
+                    modifAjaxArray[26] = ajaxArray[i].price_usd;
+                    break;
+                case 'PHO':
+                    coinParamArr.push(new coinParaFromCoinMarketCap(ajaxArray[i].symbol,ajaxArray[i].price_usd,ajaxArray[i].percent_change_24h));
+                    modifAjaxArray[27] = ajaxArray[i].price_usd;
+                    break;
+                case 'CORG':
+                    coinParamArr.push(new coinParaFromCoinMarketCap(ajaxArray[i].symbol,ajaxArray[i].price_usd,ajaxArray[i].percent_change_24h));
+                    modifAjaxArray[28] = ajaxArray[i].price_usd;
+                    break;
+                case 'POP':
+                    coinParamArr.push(new coinParaFromCoinMarketCap(ajaxArray[i].symbol,ajaxArray[i].price_usd,ajaxArray[i].percent_change_24h));
+                    modifAjaxArray[29] = ajaxArray[i].price_usd;
+                    break;
+                case 'ZEIT':
+                    coinParamArr.push(new coinParaFromCoinMarketCap(ajaxArray[i].symbol,ajaxArray[i].price_usd,ajaxArray[i].percent_change_24h));
+                    modifAjaxArray[30] = ajaxArray[i].price_usd;
+                    break;
+                case 'TTC':
+                    coinParamArr.push(new coinParaFromCoinMarketCap(ajaxArray[i].symbol,ajaxArray[i].price_usd,ajaxArray[i].percent_change_24h));
+                    modifAjaxArray[31] = ajaxArray[i].price_usd;
+                    break;
+                case 'MINT':
+                    coinParamArr.push(new coinParaFromCoinMarketCap(ajaxArray[i].symbol,ajaxArray[i].price_usd,ajaxArray[i].percent_change_24h));
+                    modifAjaxArray[32] = ajaxArray[i].price_usd;
+                    break;
+                case 'LINDA':
+                    coinParamArr.push(new coinParaFromCoinMarketCap(ajaxArray[i].symbol,ajaxArray[i].price_usd,ajaxArray[i].percent_change_24h));
+                    modifAjaxArray[33] = ajaxArray[i].price_usd;
+                    break;
+                case 'ETN':
+                    coinParamArr.push(new coinParaFromCoinMarketCap(ajaxArray[i].symbol,ajaxArray[i].price_usd,ajaxArray[i].percent_change_24h));
+                    modifAjaxArray[34] = ajaxArray[i].price_usd;
+                    break;
+                case 'SMART':
+
+                    if (ajaxArray[i].name === 'SmartCash') {
+                        coinParamArr.push(new coinParaFromCoinMarketCap(ajaxArray[i].symbol,ajaxArray[i].price_usd,ajaxArray[i].percent_change_24h));
+                        modifAjaxArray[35] = ajaxArray[i].price_usd;
+                    }
+                    break;
+                case 'NXT':
+                    coinParamArr.push(new coinParaFromCoinMarketCap(ajaxArray[i].symbol,ajaxArray[i].price_usd,ajaxArray[i].percent_change_24h));
+                    modifAjaxArray[36] = ajaxArray[i].price_usd;
+                    break;
+                case 'EOS':
+                    coinParamArr.push(new coinParaFromCoinMarketCap(ajaxArray[i].symbol,ajaxArray[i].price_usd,ajaxArray[i].percent_change_24h));
+                    modifAjaxArray[37] = ajaxArray[i].price_usd;
+                    break;
+                case 'ESP':
+                    coinParamArr.push(new coinParaFromCoinMarketCap(ajaxArray[i].symbol,ajaxArray[i].price_usd,ajaxArray[i].percent_change_24h));
+                    modifAjaxArray[38] = ajaxArray[i].price_usd;
+                    break;
+
+                case 'FLASH':
+                    coinParamArr.push(new coinParaFromCoinMarketCap(ajaxArray[i].symbol,ajaxArray[i].price_usd,ajaxArray[i].percent_change_24h));
+                    modifAjaxArray[39] = ajaxArray[i].price_usd;
+                    break;
+
+                case 'PRL':
+                    coinParamArr.push(new coinParaFromCoinMarketCap(ajaxArray[i].symbol,ajaxArray[i].price_usd,ajaxArray[i].percent_change_24h));
+                    modifAjaxArray[40] = ajaxArray[i].price_usd;
                     break;
             }
         }
-for (let i=0; i<modifAjaxArray.length;i++){console.log(modifAjaxArray[i]);}
+
+          //Запрос данных о текущим бытие монеты
+
+        function getCoinTempParam(name, ret) {
+
+            switch (ret) {
+                case '24':
+                    for (let i=0; i<coinParamArr.length; i++){
+                        if (coinParamArr[i].name===name){
+                            return coinParamArr[i].change24h;
+                        }
+                    }
+            }
+        }
+
 
 
 //Запрос в базу
@@ -160,7 +298,6 @@ for (let i=0; i<modifAjaxArray.length;i++){console.log(modifAjaxArray[i]);}
                     this.isFrozen = isFrozen; // Замородена ли
                     this.frozenDays = frozenDays; // заморожена на сколько дней
                     this.frozenLocation = frozenLocation; //Где заморожена
-
                 };
 
 
@@ -169,7 +306,6 @@ for (let i=0; i<modifAjaxArray.length;i++){console.log(modifAjaxArray[i]);}
 
 // Здесь я преобразую заново массив объектов, полученных от GET запроса
                 let t = JSON.parse(ar[1]);
-
                 for (let i = 0; i < t.length; i++) {
                     bitcoinWallet[i] = new coin(t[i].name, t[i].amount, t[i].bPriceUsd, t[i].bPriceUA, t[i].bPriceBTC, t[i].dateOfpurchase, t[i].location, t[i].isFrozen, t[i].frozenDays, t[i].frozenLocation);
                 }
@@ -191,7 +327,6 @@ for (let i=0; i<modifAjaxArray.length;i++){console.log(modifAjaxArray[i]);}
                             else {
                                 return rowClass;
                             }
-
                         }
 
 //TODO Получаю стиль бэйджа и что показывается при наведении если монета заморожена
@@ -203,7 +338,6 @@ for (let i=0; i<modifAjaxArray.length;i++){console.log(modifAjaxArray[i]);}
                             else {
                                 return idBage;
                             }
-
                         }
 
                         $(function () {
@@ -215,23 +349,35 @@ for (let i=0; i<modifAjaxArray.length;i++){console.log(modifAjaxArray[i]);}
                             '<span class="badge badge-default">Монета</span>' +
                             '<span class="badge badge-default">Кол-во</span>' +
                             '<span class="badge badge-default">Цена USD</span >' +
-                            '<span class="badge badge-default">Цена UA</span>' +
                             '<span class="badge badge-default">Цена в BTC</span>' +
                             '<span class="badge badge-default">Дата покупки</span>' +
-                            '<span class="badge badge-default">Где лежит</span>' +
+                         //   '<span class="badge badge-default">Где</span>' +
                             '<span class="badge badge-default">Всего в USD</span>' +
                             '<span class="badge badge-default">Тек. курс</span>' +
                             '<span class="badge badge-default">Тек. стоим</span>' +
                             '<span class="badge badge-default">Доход</span>' +
+                            '<span class="badge badge-default">% роста</span>' +
+                            '<span class="badge badge-default">24ч</span>' +
                             '<span>Меню</span>');
 
                         let summary = 0.0;
-                        let tempInputUsd =0.0;
-                        for (let i = 0; i < bitcoinWallet.length; i++) {
+                        let tempInputUsd = 0.0;
 
+
+                        //Индикатор цветом сильного роста
+                        function getBageWarning(change24){
+                            if (change24>=100&&change24<200) {
+                                return "badge badge-success";
+                            } else if (change24>=200) {
+                                return "badge badge-primary";
+                            }
+                            return "badge badge-default";
+                        }
+
+
+                        for (let i = 0; i < bitcoinWallet.length; i++) {
                             if (((bitcoinWallet[i].amount * actualPriceOfcurentCoin(bitcoinWallet[i].name)) - (bitcoinWallet[i].amount * bitcoinWallet[i].bPriceUsd)).toFixed(2) < 0) {
                                 $('#dohod' + i + '').attr('class', 'badge badge-warning');
-
                             }
 
                             if (bitcoinWallet[i].isFrozen) {
@@ -242,21 +388,25 @@ for (let i=0; i<modifAjaxArray.length;i++){console.log(modifAjaxArray[i]);}
                             }
 
 
-                            tempInputUsd = parseFloat(tempInputUsd)+parseFloat((bitcoinWallet[i].amount * bitcoinWallet[i].bPriceUsd).toFixed(2));
+                            tempInputUsd = parseFloat(tempInputUsd) + parseFloat((bitcoinWallet[i].amount * bitcoinWallet[i].bPriceUsd).toFixed(2));
 
 
                             $('#soderjimoe').append(getRowStileWhenCoinIsFrozen(bitcoinWallet[i].isFrozen) +
                                 '<span class="badge badge-success"' + getBageStyleWhenCoinIsFrozen(bitcoinWallet[i].isFrozen, i) + '>' + bitcoinWallet[i].name + '</span>' +
                                 '<span class="badge badge-default">' + bitcoinWallet[i].amount + '</span>' +
                                 '<span class="badge badge-default">' + bitcoinWallet[i].bPriceUsd + '</span>' +
-                                '<span class="badge badge-default">' + bitcoinWallet[i].bPriceUA + '</span>' +
+
                                 '<span class="badge badge-default">' + bitcoinWallet[i].bPriceBTC + '</span>' +
                                 '<span class="badge badge-default">' + bitcoinWallet[i].dateOfpurchase.format('DD MM YYYY') + '</span>' +
-                                '<span class="badge badge-default">' + bitcoinWallet[i].location + '</span>' +
+                               // '<span class="badge badge-default">' + bitcoinWallet[i].location + '</span>' +
                                 '<span class="badge badge-default">' + (bitcoinWallet[i].amount * bitcoinWallet[i].bPriceUsd).toFixed(2) + '</span>' +
                                 '<span class="badge badge-default">' + actualPriceOfcurentCoin(bitcoinWallet[i].name) + '</span>' +
                                 '<span class="badge badge-default">' + (actualPriceOfcurentCoin(bitcoinWallet[i].name) * bitcoinWallet[i].amount).toFixed(2) + '</span>' +
-                                '<span class="badge badge-default" id="dohod' + i + '">' + ((bitcoinWallet[i].amount * actualPriceOfcurentCoin(bitcoinWallet[i].name)) - (bitcoinWallet[i].amount * bitcoinWallet[i].bPriceUsd)).toFixed(2) + '</span>' + dropdownMenu +
+                                '<span class="badge badge-default" id="dohod' + i + '">' + ((bitcoinWallet[i].amount * actualPriceOfcurentCoin(bitcoinWallet[i].name)) - (bitcoinWallet[i].amount * bitcoinWallet[i].bPriceUsd)).toFixed(2) + '</span>' +
+                                `<span class="badge badge-default"> ${(((actualPriceOfcurentCoin(bitcoinWallet[i].name)/bitcoinWallet[i].bPriceUsd)-1)*100).toFixed(2)}</span>` +
+                                `<span class="${getBageWarning(getCoinTempParam(bitcoinWallet[i].name, '24'))}">${getCoinTempParam(bitcoinWallet[i].name, '24')}</span>` +
+
+                                dropdownMenu +
                                 '</div>');
                             $('#Bna' + i + '').attr('class', 'badge badge-warning');
                             $('#Bna' + i + '').css('width', '70px');
@@ -272,14 +422,36 @@ for (let i=0; i<modifAjaxArray.length;i++){console.log(modifAjaxArray[i]);}
 
                         }
 
+
+
+
                         console.log("Вложили всего: " + tempInputUsd);
 
                         //TODO Вывод Summary
                         let tempArrayForSummary = [];
 
-                        summary = summary.toFixed(2);
+
+                        console.log(summary.toFixed(2));
+//summary+=correction;
+
+                        function sumOfFloat (a,b) {
+                            let result=0;
+                            a=parseFloat(a)
+                            b= parseFloat(b)
+                            result = a+b;
+
+                            return result;
+
+                        }
+
+                        summary = summary.toFixed(2); // Здесь float, все получается.
+
                         $('#summary').attr('class', 'badge badge-success');
-                        $('#summary').text("Итог: " + summary);
+                        $('#summary').text("Итог монет: " + (summary));
+
+                        $('#summary').append(`</br>Итог вложений: ${(sumOfFloat(summary,42.00))}`);
+                        //добавил фиксацию с трех монет POP, LINDA, TCC (440 у.е.)
+
                         tempArrayForSummary[0] = now.format('D.M');
                         tempArrayForSummary[1] = summary;
 
@@ -293,11 +465,9 @@ for (let i=0; i<modifAjaxArray.length;i++){console.log(modifAjaxArray[i]);}
                             $.ajax({
                                 type: "PUT",
                                 url: "http://localhost:8000/notes/5a363f42f36d2869668bac54",
-
                                 data: {
                                     title: JSON.stringify(graf)
                                 },
-
                                 success: function (msg) {
                                     console.log("Ушли данные: graf" + msg);
                                 }
@@ -313,13 +483,11 @@ for (let i=0; i<modifAjaxArray.length;i++){console.log(modifAjaxArray[i]);}
                                 data: {
                                     title: JSON.stringify(graf)
                                 },
-
                                 success: function (msg) {
                                     console.log("Ушли данные: graf" + msg);
                                 }
                             });
                         }
-
                     }
 
 
@@ -401,10 +569,51 @@ for (let i=0; i<modifAjaxArray.length;i++){console.log(modifAjaxArray[i]);}
                                 return modifAjaxArray[16];
                             case "MTH" :
                                 return modifAjaxArray[17];
-
+                            case "LTC" :
+                                return modifAjaxArray[19];
+                            case "VIBE" :
+                                return modifAjaxArray[20];
+                            case "STX" :
+                                return modifAjaxArray[21];
+                            case "DATA" :
+                                return modifAjaxArray[22];
+                            case "LINK" :
+                                return modifAjaxArray[23];
+                            case "DCN" :
+                                return modifAjaxArray[24];
+                            case "DIME" :
+                                return modifAjaxArray[25];
+                            case "PAC" :
+                                return modifAjaxArray[26];
+                            case "PHO" :
+                                return modifAjaxArray[27];
+                            case "CORG" :
+                                return modifAjaxArray[28];
+                            case "POP" :
+                                return modifAjaxArray[29];
+                            case "ZEIT" :
+                                return modifAjaxArray[30];
+                            case "TTC" :
+                                return modifAjaxArray[31];
+                            case "MINT" :
+                                return modifAjaxArray[32];
+                            case "LINDA" :
+                                return modifAjaxArray[33];
+                            case "ETN" :
+                                return modifAjaxArray[34];
+                            case "SMART" :
+                                return modifAjaxArray[35];
+                            case "NXT" :
+                                return modifAjaxArray[36];
+                            case "EOS" :
+                                return modifAjaxArray[37];
+                            case "ESP" :
+                            return modifAjaxArray[38];
+                            case "FLASH" :
+                                return modifAjaxArray[39];
+                            case "PRL" :
+                                return modifAjaxArray[40];
                         }
-
-
                     }
 
 
@@ -599,19 +808,15 @@ for (let i=0; i<modifAjaxArray.length;i++){console.log(modifAjaxArray[i]);}
                                     console.log("Ушли данные: " + msg);
                                 }
                             });
-
-
                         }
-
-
                     }
-
                 });
-
-            }
+            },
+            error: function(){alert('Problem c запросом в базу')}
         });
 
-    }
+    },
+    error: function(){console.log("Запрос не произошел")}
 });
 
 
@@ -638,7 +843,6 @@ let promise = new Promise((resolve, reject) => {
 
                     let tarray = JSON.parse(array[1]);
 
-
                     google.charts.load('current', {'packages': ['corechart']});
                     google.charts.setOnLoadCallback(drawChart);
 
@@ -657,7 +861,7 @@ let promise = new Promise((resolve, reject) => {
                     }
                 }
             }))
-    }, 1000);
+    }, 5000);
 
 });
 

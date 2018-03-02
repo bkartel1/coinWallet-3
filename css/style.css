@@ -58,11 +58,16 @@ h1,h2,h3,h4,h5 {
 }
 
 .badge-default {
-    min-width: 70px;
+    min-width: 77px;
 
 }
 
 .badge-warning {
+    min-width: 70px;
+
+}
+
+.badge-danger {
     min-width: 70px;
 
 }
@@ -222,4 +227,34 @@ hr{
 
 .btn {
     line-height: 0.7;
+}
+
+.elem0 {
+    min-width: 30px;
+
+}
+
+.elem1 {
+    min-width: 250px;
+
+}
+.elem2 {
+    min-width: 50px;
+
+}
+.elem3 {
+    min-width: 50px;
+
+}
+.elem4 {
+    min-width: 50px;
+
+}
+
+.roww {
+
+    display: flex;
+    justify-content: flex-start;
+    width: 518px;
+    padding-left: 1%;
 }
